@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Damar Adi Candra — X PPLG 1</title>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#080a10;--card:#111620;--card2:#181e2a;--text:#f5f7ff;--muted:#98a2b3;--accent:#795cff;--accent2:#00d4ff;--line:rgba(255,255,255,.09)}
+body.light{--bg:#eef1f7;--card:#fff;--card2:#f2f4f8;--text:#17191f;--muted:#687080;--line:rgba(0,0,0,.08)}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 5% 5%,rgba(121,92,255,.18),transparent 30%),radial-gradient(circle at 95% 15%,rgba(0,212,255,.12),transparent 30%),var(--bg);color:var(--text);font-family:Arial,sans-serif;transition:.3s}
+header{position:sticky;top:0;z-index:100;padding:15px;backdrop-filter:blur(15px);background:rgba(8,10,16,.8);border-bottom:1px solid var(--line)}
+body.light header{background:rgba(255,255,255,.8)}
+.nav{max-width:950px;margin:auto;display:flex;justify-content:space-between;align-items:center}.logo{font-weight:bold;letter-spacing:.5px}
+.container{width:92%;max-width:950px;margin:28px auto}.hero{position:relative;overflow:hidden;padding:40px 28px;border-radius:28px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(121,92,255,.18),rgba(0,212,255,.06))}
+.hero h1{font-size:clamp(38px,8vw,70px);margin:18px 0 8px;letter-spacing:-3px}.gradient{background:linear-gradient(90deg,#9b86ff,var(--accent2));-webkit-background-clip:text;color:transparent}
+.hero p{color:var(--muted);line-height:1.7}.badge{display:inline-block;padding:7px 12px;border-radius:20px;background:rgba(121,92,255,.18);color:#c9c0ff;font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:21px;padding:22px;margin-top:18px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+button,.link{border:1px solid var(--line);padding:12px 16px;border-radius:12px;font-weight:bold;cursor:pointer;background:var(--card2);color:var(--text);transition:.15s;text-decoration:none;display:inline-block}
+button:hover,.link:hover{transform:translateY(-2px);border-color:var(--accent)}.primary{background:linear-gradient(90deg,var(--accent),#987fff);color:white}
+.muted{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.stat{min-width:0;overflow:hidden;background:var(--card2);padding:14px;border-radius:14px;text-align:center}.stat b{display:block;font-size:24px;margin:5px 0}
+.progress{height:11px;background:var(--card2);border-radius:20px;overflow:hidden}.progress div{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.4s}
+input,textarea{width:100%;padding:13px;margin:6px 0;border-radius:11px;border:1px solid var(--line);background:var(--card2);color:var(--text);outline:none;font-size:15px}textarea{min-height:120px;resize:vertical}
+.result{padding:14px;margin:10px 0;border-radius:13px;background:var(--card2);text-align:center;min-height:45px}.feature{padding:14px;border-radius:14px;background:var(--card2);margin-top:9px}
+.map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.map button{min-height:85px}.inventory{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.item{padding:16px;text-align:center;background:var(--card2);border-radius:15px}.item b{display:block;margin:6px 0 10px}
+.chat{height:230px;overflow-y:auto;background:var(--card2);padding:12px;border-radius:13px}.msg{padding:9px;margin:6px 0;border-radius:10px;background:var(--card)}.bot{border-left:3px solid var(--accent)}.user{border-left:3px solid var(--accent2)}
+.qr{display:block;width:180px;height:180px;margin:15px auto;border-radius:12px;background:white}.timer{text-align:center;font-size:48px;font-weight:bold;margin:15px 0}
+.calc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.calc button{padding:16px 5px}.calc-screen{grid-column:1/-1;padding:15px;text-align:right;background:var(--card2);border-radius:12px;font-size:25px;min-height:55px;overflow:hidden}
+.achievement{display:flex;align-items:center;gap:13px;padding:13px;background:var(--card2);border-radius:13px;margin-top:8px}.locked{opacity:.35}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.gallery img{width:100%;height:190px;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
+.dream{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.dream .feature{min-height:190px}
+.furina{position:fixed;right:16px;bottom:18px;width:105px;height:145px;object-fit:cover;border-radius:18px;border:2px solid rgba(255,255,255,.35);box-shadow:0 10px 35px rgba(0,0,0,.4);display:none;z-index:90;animation:pop .35s}
+@keyframes pop{from{transform:scale(.2) rotate(-8deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+footer{text-align:center;padding:45px 20px;color:var(--muted)}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+@media(max-width:650px){
+ .grid,.dream{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.stat{padding:10px 4px;font-size:12px}.stat b{font-size:19px}
+ .map{grid-template-columns:repeat(2,minmax(0,1fr))}.inventory{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .gallery img{height:150px}.hero{padding:30px 22px}.hero h1{letter-spacing:-2px}
+}
+</style>
+
+<style>
+.daily{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wheel{width:210px;height:210px;border-radius:50%;margin:15px auto;background:conic-gradient(#795cff 0 60deg,#00d4ff 60deg 120deg,#00c878 120deg 180deg,#ff8a00 180deg 240deg,#ff4d88 240deg 300deg,#987fff 300deg 360deg);border:8px solid var(--card2);display:flex;align-items:center;justify-content:center;font-size:45px;transition:transform 1s}
+.mini-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mini{padding:16px;background:var(--card2);border-radius:15px}
+.mood{display:flex;flex-wrap:wrap;gap:8px}
+.mood button{font-size:20px}
+.quote{font-size:18px;line-height:1.6;text-align:center;padding:18px;background:var(--card2);border-radius:15px}
+.photo-box{display:grid;grid-template-columns:1fr 1fr;gap:10px}.photo-box img{width:100%;height:220px;object-fit:cover;border-radius:15px;background:var(--card2)}
+.visitor{font-size:34px;font-weight:bold;text-align:center}
+@media(max-width:650px){.daily,.mini-games,.photo-box{grid-template-columns:1fr}.wheel{width:180px;height:180px}}
+</style>
+
+<style id="structured-v9">
+body{overflow-x:hidden}
+.app-nav{position:sticky;top:67px;z-index:80;margin:0 auto;max-width:950px;padding:10px 0;background:rgba(8,10,16,.88);backdrop-filter:blur(14px)}
+body.light .app-nav{background:rgba(238,241,247,.9)}
+.nav-scroll{display:flex;gap:8px;overflow-x:auto;padding:2px 4px;scrollbar-width:none}
+.nav-scroll::-webkit-scrollbar{display:none}
+.nav-btn{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:700}
+.nav-btn.active{background:linear-gradient(90deg,var(--accent),#987fff);color:#fff;border-color:transparent}
+.page-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 8px}
+.page-title h2{margin:0;font-size:28px}
+.page-title p{margin:4px 0;color:var(--muted)}
+.section-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.section-grid>.card{margin-top:0}
+.section-grid>.card.wide{grid-column:1/-1}
+.section-empty{padding:35px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:20px;color:var(--muted)}
+@media(max-width:650px){
+ .app-nav{top:61px}
+ .section-grid{grid-template-columns:1fr}
+ .section-grid>.card.wide{grid-column:auto}
+ .page-title h2{font-size:24px}
+}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">DAC // X PPLG 1</div><div><button onclick="toggleTheme()">🌙</button><button onclick="scrollToTools()">🧰</button></div></div></header>
+<div class="app-nav">
+  <div class="nav-scroll">
+    <button class="nav-btn active" data-page="home">🏠 Home</button>
+    <button class="nav-btn" data-page="profile">👤 Profil</button>
+    <button class="nav-btn" data-page="fun">🎮 Fun</button>
+    <button class="nav-btn" data-page="tools">🧰 Tools</button>
+    <button class="nav-btn" data-page="dreams">🚀 Mimpi</button>
+    <button class="nav-btn" data-page="explore">🗺️ Explore</button>
+    <button class="nav-btn" data-page="gallery">🖼️ Gallery</button>
+    <button class="nav-btn" data-page="updates">🛠️ Update</button>
+  </div>
+</div>
+
+<div class="container">
+<div id="pageIntro"></div><div id="pageContent"></div>
+
+<section class="hero">
+<span class="badge">👋 yo, lu nyasar kesini</span>
+<h1>Damar <span class="gradient">Adi Candra</span></h1>
+<p>X PPLG 1 • 2026<br>yaudah selamat datang di web gue 😭<br>gak tau lu kesini dari mana, tapi mumpung udah sini lihat-lihat aja.</p>
+<a class="link primary" href="https://www.tiktok.com/@damdamkar77" target="_blank">🎵 TikTok gue</a>
+</section>
+
+<div class="card"><h2>🏠 Dashboard</h2><div class="stats">
+<div class="stat">🕐<b id="clock">00:00</b>jam</div><div class="stat">📅<b id="date">--</b>tanggal</div><div class="stat">🔥<b id="streak">1</b>streak</div>
+</div><br><div class="result" id="welcome">yo 👋</div></div>
+
+<div class="card"><h2>🛠️ Website Update</h2><div class="feature"><b>🟢 Website Online</b><br><span class="muted">Version: v8.0 • 15/08/2026</span><br><br>🔥 Semua ide terbaru masuk di versi ini.</div><br><button class="primary" onclick="showUpdates()">📜 Lihat semua update</button>
+<div class="result" id="updateHistory" style="display:none;text-align:left"><b>🚀 v8.0 — 15/08/2026</b><br>👤 User UI<br>🖼️ Gallery<br>🚀 Cita-cita section<br>🗺️ Secret Room<br>🗿 Furina easter egg<br>📱 Mobile UI diperbaiki<hr><b>v6.0</b><br>🎮 Game • 🤖 Bot • 🧰 Tools • 🏆 Achievement<hr><b>v5.0</b><br>🎨 Website diperbarui total</div></div>
+
+<div class="card"><h2>👤 User Area</h2><p class="muted">Ini UI khusus lu sebagai pengunjung. Progress disimpan di browser perangkat lu.</p>
+<input id="username" placeholder="Masukkan nama lu..." maxlength="20"><button class="primary" onclick="saveUser()">💾 Simpan profil</button>
+<div class="stats" style="margin-top:12px"><div class="stat">👤<b id="userDisplay">Guest</b>nama</div><div class="stat">🪙<b id="coin">0</b>coin</div><div class="stat">⭐<b id="level">1</b>level</div></div>
+<br><p class="muted">EXP</p><div class="progress"><div id="xpbar"></div></div><p class="muted" id="xptext">0 / 100 EXP</p></div>
+
+<div class="card"><h2>🚀 Cita-Cita</h2><p class="muted">Dua mimpi yang pengen banget gue kejar.</p>
+<div class="dream">
+<div class="feature"><h3>👨‍🚀 Jadi Astronot</h3><p>Gue pengen banget suatu hari bisa melihat Bumi dari luar angkasa. Kalau dikasih kesempatan pergi ke sana, Starship jadi salah satu kendaraan yang paling pengen gue lihat dari dekat. 🚀🌎</p></div>
+<div class="feature"><h3>✈️ Jadi Pilot</h3><p>Gue juga punya mimpi buat jadi pilot. Kedengarannya jauh, tapi ya namanya juga cita-cita. Yang penting sekarang punya sesuatu yang pengen dikejar. 🔥</p></div>
+</div>
+<div class="result">“Entah nanti bakal jadi kenyataan atau enggak, yang penting gue mulai dari sekarang.”</div></div>
+
+<div class="card"><h2>🖼️ Gallery</h2><p class="muted">Tempat buat gambar-gambar random di website gue.</p>
+<div class="gallery">
+<img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=700&q=80" alt="Bumi dari luar angkasa" loading="lazy">
+<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80" alt="Teknologi" loading="lazy">
+<img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=700&q=80" alt="Galaksi" loading="lazy">
+</div></div>
+
+<div class="card" id="tools"><h2>🧰 Tools</h2>
+<div class="feature"><h3>🧮 Kalkulator</h3><div class="calc"><div class="calc-screen" id="calcScreen">0</div>
+<button onclick="calc('7')">7</button><button onclick="calc('8')">8</button><button onclick="calc('9')">9</button><button onclick="calc('/')">÷</button>
+<button onclick="calc('4')">4</button><button onclick="calc('5')">5</button><button onclick="calc('6')">6</button><button onclick="calc('*')">×</button>
+<button onclick="calc('1')">1</button><button onclick="calc('2')">2</button><button onclick="calc('3')">3</button><button onclick="calc('-')">−</button>
+<button onclick="calc('0')">0</button><button onclick="calc('.')">.</button><button onclick="calculate()">=</button><button onclick="calc('+')">+</button></div><br><button onclick="clearCalc()">hapus</button></div>
+<div class="feature"><h3>📝 To-do</h3><input id="todoInput" placeholder="contoh: tugas informatika"><button class="primary" onclick="addTodo()">+ tambah</button><div id="todoList"></div></div>
+<div class="feature"><h3>📓 Catatan</h3><textarea id="notes" placeholder="tulis sesuatu..."></textarea><button class="primary" onclick="saveNotes()">💾 simpan</button> <button onclick="clearNotes()">hapus</button><div class="result" id="noteResult">belum ada.</div></div>
+<div class="feature"><h3>🔐 Password Generator</h3><button class="primary" onclick="generatePassword()">bikin password</button><div class="result" id="password">belum ada.</div></div>
+</div>
+
+<div class="card"><h2>🎮 Tebak Angka</h2><p>Gue pilih angka 1–10. Coba tebak.</p><p>❤️ <b id="lives">3</b> &nbsp; 🏆 <b id="score">0</b></p><input id="guess" type="number" min="1" max="10" placeholder="tebak angka..."><button class="primary" onclick="guessNumber()">🎯 TEBAK</button><div class="result" id="gameResult">gas 😭</div><button onclick="resetGame()">🔄 reset</button></div>
+
+<div class="grid"><div class="card"><h2>🧠 Quiz PPLG</h2><div class="result" id="question">tekan mulai dulu.</div><div id="answers"></div><br><button class="primary" onclick="startQuiz()">mulai quiz</button><p class="muted">Skor: <b id="quizScore">0</b></p></div>
+<div class="card"><h2>🎲 Random</h2><div class="result" id="random">coba pencet.</div><button class="primary" onclick="randomThing()">🎲 gas</button><hr><h3>🔥 Daily Challenge</h3><button class="primary" onclick="challenge()">🎯 challenge</button><div class="result" id="challenge">belum ada.</div></div></div>
+
+<div class="card"><h2>🤖 Damar Bot</h2><div class="chat" id="chat"><div class="msg bot">🤖: yo, mau nanya apa?</div></div><input id="chatInput" placeholder="ketik sesuatu..."><button class="primary" onclick="sendChat()">kirim</button></div>
+
+<div class="card"><h2>⏱️ Timer Belajar</h2><div class="timer" id="timer">25:00</div><button class="primary" onclick="startTimer()">▶ mulai</button> <button onclick="pauseTimer()">⏸ pause</button> <button onclick="resetTimer()">🔄 reset</button></div>
+
+<div class="card"><h2>🎒 Inventory</h2><div class="inventory">
+<div class="item">🗿<b>Batu</b><button onclick="buyItem(10,'Batu')">10 🪙</button></div>
+<div class="item">🎩<b>Topi</b><button onclick="buyItem(30,'Topi')">30 🪙</button></div>
+<div class="item">👑<b>Mahkota</b><button onclick="buyItem(100,'Mahkota')">100 🪙</button></div>
+</div><div class="result" id="inventoryResult">belum beli apa-apa.</div></div>
+
+<div class="card"><h2>🏆 Achievement</h2>
+<div class="achievement locked" id="a1">🪙 <div><b>Akhirnya Punya Coin</b><br><span class="muted">punya 10 coin.</span></div></div>
+<div class="achievement locked" id="a2">🎮 <div><b>Jago Juga Lu</b><br><span class="muted">menang 3 kali.</span></div></div>
+<div class="achievement locked" id="a3">👀 <div><b>Curiosity</b><br><span class="muted">nemuin Secret Room.</span></div></div>
+<div class="achievement locked" id="a4">🗿 <div><b>Gabut Maksimal</b><br><span class="muted">klik tombol rahasia 20 kali.</span></div></div>
+</div>
+
+<div class="card"><h2>🗺️ Secret Map</h2><div class="map">
+<button onclick="openRoom('home')">🏠<br>Home</button><button onclick="openRoom('game')">🎮<br>Game</button><button onclick="openRoom('pplg')">💻<br>PPLG</button><button onclick="openRoom('secret')">❓<br>???</button><button onclick="openRoom('void')">🕳️<br>Void</button><button onclick="openRoom('future')">🔒<br>Future</button>
+</div><div class="result" id="room">pilih salah satu jir.</div></div>
+
+
+<div class="card"><h2>🎁 Daily Reward</h2>
+<p class="muted">Masuk lagi besok, ambil hadiah lagi. Jangan curang jir 😭</p>
+<div class="daily">
+<div class="stat">🪙<b id="dailyCoin">+0</b>coin</div>
+<div class="stat">⭐<b id="dailyXp">+0</b>EXP</div>
+<div class="stat">🔥<b id="dailyStatus">?</b>status</div>
+</div><br><button class="primary" onclick="dailyReward()">🎁 Ambil hadiah</button>
+<div class="result" id="dailyResult">hadiah hari ini belum diambil.</div></div>
+
+<div class="card"><h2>🎡 Spin Wheel</h2>
+<p class="muted">Putar sekali dan lihat nasib lu hari ini 🗿</p>
+<div class="wheel" id="wheel">🎡</div>
+<button class="primary" onclick="spinWheel()">PUTARRRR 🔥</button>
+<div class="result" id="wheelResult">semoga gak zonk.</div></div>
+
+<div class="card"><h2>🧩 Mini Games Hub</h2>
+<div class="mini-games">
+<div class="mini"><h3>⚡ Reaction</h3><p>Tekan tombol secepat mungkin setelah berubah hijau.</p><button class="primary" id="reactionBtn" onclick="reactionStart()">mulai</button><div class="result" id="reactionResult">siap?</div></div>
+<div class="mini"><h3>🧠 Memori</h3><p>Ingat urutan angka yang muncul.</p><button class="primary" onclick="memoryGame()">mulai</button><div class="result" id="memoryResult">belum mulai.</div></div>
+</div></div>
+
+<div class="card"><h2>🕵️ Secret Achievement</h2>
+<p class="muted">Ada achievement yang sengaja gak gue kasih tau cara dapetnya.</p>
+<div class="achievement locked" id="a5">🕵️ <div><b>???</b><br><span class="muted">rahasia.</span></div></div>
+<div class="achievement locked" id="a6">🎡 <div><b>Lucky Spin</b><br><span class="muted">dapat hadiah besar dari wheel.</span></div></div></div>
+
+<div class="card"><h2>🌈 Mood Selector</h2>
+<p class="muted">Pilih mood lu sekarang.</p>
+<div class="mood">
+<button onclick="setMood('😎','gas terus bro')">😎</button>
+<button onclick="setMood('😭','yaudah gapapa, santai dulu')">😭</button>
+<button onclick="setMood('🔥','hari ini waktunya gas')">🔥</button>
+<button onclick="setMood('😴','tidur dulu jir')">😴</button>
+<button onclick="setMood('🗿','mode batu aktif')">🗿</button>
+</div>
+<div class="quote" id="moodResult">mood lu apa hari ini?</div></div>
+
+<div class="card"><h2>💬 Random Quote</h2>
+<div class="quote" id="quote">tekan tombol, siapa tau dapet kata-kata bagus.</div><br>
+<button class="primary" onclick="randomQuote()">🎲 Random lagi</button></div>
+
+<div class="card"><h2>📊 Visitor Stats</h2>
+<p class="muted">Statistik ini tersimpan lokal di browser pengunjung.</p>
+<div class="visitor" id="visitCount">0</div>
+<p style="text-align:center" class="muted">kunjungan dari perangkat ini</p></div>
+
+<div class="card"><h2>📸 Photo Booth</h2>
+<p class="muted">Pilih gambar dari perangkat lu. Gambar cuma diproses di browser.</p>
+<div class="photo-box">
+<div><input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)"></div>
+<img id="photoPreview" alt="Preview foto">
+</div>
+<br><button onclick="photoEffect('normal')">normal</button>
+<button onclick="photoEffect('gray')">grayscale</button>
+<button onclick="photoEffect('sepia')">sepia</button>
+<button onclick="photoEffect('invert')">invert</button></div>
+
+<div class="card"><h2>🧭 Explore More</h2>
+<p class="muted">Semakin sering lu eksplor, semakin banyak rahasia yang kebuka.</p>
+<button class="primary" onclick="explore()">🗺️ Explore</button>
+<div class="result" id="exploreResult">belum menjelajah.</div></div>
+
+<div class="card"><h2>📱 TikTok</h2><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fwww.tiktok.com%2F%40damdamkar77" alt="QR TikTok"><a class="link primary" href="https://www.tiktok.com/@damdamkar77" target="_blank">🎵 buka TikTok</a></div>
+
+<div class="card"><h2>🎨 Customizer</h2><button onclick="changeAccent('#795cff')">🟣 Ungu</button> <button onclick="changeAccent('#00aaff')">🔵 Biru</button> <button onclick="changeAccent('#00c878')">🟢 Hijau</button> <button onclick="changeAccent('#ff4d88')">🌸 Pink</button> <button onclick="changeAccent('#ff8a00')">🟠 Orange</button></div>
+
+<div class="card"><h2>🗿 Jangan Pencet</h2><p class="muted">serius. jangan.</p><button onclick="secret()">jangan klik jir</button><div class="result" id="secret">...</div></div>
+</div>
+
+<footer><button onclick="document.querySelector('[data-page=home]').click()">🏠 balik Home</button><br><br><b>Damar Adi Candra</b><br>X PPLG 1 • 2026<br><br>yaudah segitu dulu jir 😭<br><br>🛠️ v8.0</footer>
+
+<img id="furina" class="furina" alt="Furina easter egg">
+
+<script>
+let coin=Number(localStorage.getItem("coin"))||0,level=Number(localStorage.getItem("level"))||1,xp=Number(localStorage.getItem("xp"))||0,wins=Number(localStorage.getItem("wins"))||0,clickCount=Number(localStorage.getItem("clickCount"))||0,roomFound=localStorage.getItem("roomFound")==="1";
+let lives=3,score=0,secretNumber=Math.floor(Math.random()*10)+1,secretClicks=0,time=1500,timerInterval=null,calcValue="",quizScore=0;
+
+function save(){localStorage.setItem("coin",coin);localStorage.setItem("level",level);localStorage.setItem("xp",xp);localStorage.setItem("wins",wins);localStorage.setItem("clickCount",clickCount);localStorage.setItem("roomFound",roomFound?"1":"0")}
+function update(){document.getElementById("coin").innerText=coin;document.getElementById("level").innerText=level;document.getElementById("xpbar").style.width=xp+"%";document.getElementById("xptext").innerText=xp+" / 100 EXP";save();checkAchievements()}
+function addXP(n){xp+=n;if(xp>=100){xp-=100;level++;coin+=5;alert("🔥 LEVEL UP JIR!\nSekarang level "+level+"\n+5 coin")}update()}
+function saveUser(){let n=document.getElementById("username").value.trim();if(!n)return;localStorage.setItem("username",n);document.getElementById("userDisplay").innerText=n}
+function showUpdates(){let b=document.getElementById("updateHistory");b.style.display=b.style.display==="none"?"block":"none"}
+function updateClock(){let n=new Date();document.getElementById("clock").innerText=n.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit",second:"2-digit"});document.getElementById("date").innerText=n.toLocaleDateString("id-ID",{day:"2-digit",month:"2-digit",year:"numeric"})}
+setInterval(updateClock,1000);updateClock();
+let savedUser=localStorage.getItem("username");if(savedUser){document.getElementById("username").value=savedUser;document.getElementById("userDisplay").innerText=savedUser}
+document.getElementById("welcome").innerText=["yo 👋 selamat datang jir","akhirnya ada yang nyasar kesini 😭","welcome bro 🗿","lu nemu website gue wkwk"][Math.floor(Math.random()*4)];
+
+function openRoom(r){let t=document.getElementById("room");if(r==="home")t.innerText="🏠 ya ini halaman utama jir.";if(r==="game")t.innerText="🎮 tempat lu buang waktu.";if(r==="pplg")t.innerText="💻 tempat anak PPLG berkumpul.";if(r==="secret"){t.innerText="👀 LAH KOK LU NEMU INI";roomFound=true;addXP(10)}if(r==="void")t.innerText="🕳️ kosong. sesuai namanya.";if(r==="future")t.innerText="🔒 belum dibuka. sabar jir.";checkAchievements()}
+
+function calc(v){calcValue+=v;document.getElementById("calcScreen").innerText=calcValue}
+function calculate(){try{calcValue=String(eval(calcValue));document.getElementById("calcScreen").innerText=calcValue}catch{calcValue="error 😭";document.getElementById("calcScreen").innerText=calcValue}}
+function clearCalc(){calcValue="";document.getElementById("calcScreen").innerText="0"}
+
+function addTodo(){let i=document.getElementById("todoInput"),t=i.value.trim();if(!t)return;let d=document.createElement("div");d.className="feature";d.innerHTML='<label><input type="checkbox"> '+t+'</label>';document.getElementById("todoList").appendChild(d);i.value=""}
+document.getElementById("notes").value=localStorage.getItem("notes")||"";
+function saveNotes(){localStorage.setItem("notes",document.getElementById("notes").value);document.getElementById("noteResult").innerText="💾 udah disimpen jir."}
+function clearNotes(){document.getElementById("notes").value="";localStorage.removeItem("notes");document.getElementById("noteResult").innerText="🗑️ dihapus."}
+function generatePassword(){let c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%",p="";for(let i=0;i<14;i++)p+=c[Math.floor(Math.random()*c.length)];document.getElementById("password").innerText=p}
+
+const questions=[{q:"HTML biasanya dipakai buat apa?",a:["Struktur website","Edit foto","Main Minecraft","Bikin kopi"],c:0},{q:"CSS buat apa?",a:["Styling website","Database","Video editing","Gaming"],c:0},{q:"JavaScript bikin website jadi...?",a:["Interaktif","Minecraft","PDF","Kalkulator otomatis"],c:0},{q:"PPLG berhubungan dengan...?",a:["Pengembangan perangkat lunak","Peternakan","Perikanan","Masak"],c:0}];
+function startQuiz(){let q=questions[Math.floor(Math.random()*questions.length)],box=document.getElementById("answers");document.getElementById("question").innerText=q.q;box.innerHTML="";q.a.forEach((a,i)=>{let b=document.createElement("button");b.innerText=a;b.style.margin="4px";b.onclick=()=>{if(i===q.c){quizScore++;addXP(5);document.getElementById("question").innerText="🔥 BENER JIR!"}else document.getElementById("question").innerText="❌ salah wkwk.";document.getElementById("quizScore").innerText=quizScore};box.appendChild(b)})}
+
+function sendChat(){let i=document.getElementById("chatInput"),text=i.value.trim();if(!text)return;let chat=document.getElementById("chat");chat.innerHTML+='<div class="msg user">👤: '+text.replaceAll("<","&lt;")+'</div>';let l=text.toLowerCase(),r="gak ngerti jir 😭";if(l.includes("halo")||l.includes("hai"))r="yo 👋 ada apa?";else if(l.includes("damar"))r="ya itu pemilik web ini lah jir 🗿";else if(l.includes("siapa"))r="gue Damar Bot. bot abal-abal tapi niat.";else if(l.includes("pplg"))r="X PPLG 1 cuy 🔥";else if(l.includes("game"))r="coba main tebak angka.";else if(l.includes("tiktok"))r="ada tombol TikTok. tinggal pencet.";else if(l.includes("update"))r="versi sekarang v8.0 jir 🔥";else if(l.includes("jelek"))r="blok. 🗿";else if(l.includes("wkwk")||l.includes("haha"))r="wkwkwk 😭";chat.innerHTML+='<div class="msg bot">🤖: '+r+'</div>';i.value="";chat.scrollTop=chat.scrollHeight}
+
+function showTimer(){let m=Math.floor(time/60),s=time%60;document.getElementById("timer").innerText=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+function startTimer(){if(timerInterval)return;timerInterval=setInterval(()=>{if(time<=0){clearInterval(timerInterval);timerInterval=null;alert("🔥 selesai jir. istirahat dulu.");addXP(15);return}time--;showTimer()},1000)}
+function pauseTimer(){clearInterval(timerInterval);timerInterval=null}function resetTimer(){pauseTimer();time=1500;showTimer()}
+
+function guessNumber(){let g=Number(document.getElementById("guess").value),r=document.getElementById("gameResult");if(g<1||g>10||!g){r.innerText="lah angka 1-10 😭";return}if(g===secretNumber){score+=10;wins++;coin+=3;addXP(10);r.innerText="ANJIR BENER 😭 +10 skor";secretNumber=Math.floor(Math.random()*10)+1;document.getElementById("guess").value="";return}lives--;document.getElementById("lives").innerText=lives;r.innerText=g>secretNumber?"kegedean 📉":"kekecilan 📈";if(lives<=0)r.innerHTML="💀 kalah jir. jawabannya <b>"+secretNumber+"</b>"}
+function resetGame(){secretNumber=Math.floor(Math.random()*10)+1;lives=3;score=0;document.getElementById("lives").innerText=3;document.getElementById("score").innerText=0;document.getElementById("guess").value="";document.getElementById("gameResult").innerText="gas lagi 😭"}
+
+const randoms=["ayam legendaris lewat 🐔","lu dapet batu 🗿","alien mantau web ini 👽","mie instan ditemukan 🍜","HP lu aman untuk sekarang.","lu dapet aura +1","WiFi lu ngelag 💀","NPC random menyapa lu","gak ada apa-apa jir wkwk"];
+function randomThing(){document.getElementById("random").innerText=randoms[Math.floor(Math.random()*randoms.length)];addXP(2)}
+const challenges=["belajar coding 15 menit.","selesain satu tugas.","rapihin file di HP.","jangan lupa minum.","coba bikin sesuatu hari ini.","baca ulang kode yang pernah lu buat."];
+function challenge(){document.getElementById("challenge").innerText="🎯 "+challenges[Math.floor(Math.random()*challenges.length)];addXP(3)}
+function buyItem(p,item){if(coin<p){document.getElementById("inventoryResult").innerText="😭 coin lu gak cukup jir.";return}coin-=p;document.getElementById("inventoryResult").innerText="🔥 dapet "+item+"!";update()}
+function changeAccent(c){document.documentElement.style.setProperty("--accent",c);localStorage.setItem("accent",c)}if(localStorage.getItem("accent"))changeAccent(localStorage.getItem("accent"))
+function toggleTheme(){document.body.classList.toggle("light");localStorage.setItem("theme",document.body.classList.contains("light")?"light":"dark")}if(localStorage.getItem("theme")==="light")document.body.classList.add("light")
+function secret(){secretClicks++;clickCount++;save();let r=document.getElementById("secret");if(secretClicks<5)r.innerText="bro katanya jangan diklik 😭";else if(secretClicks===5)r.innerText="lu masih ngeklik jir 💀";else if(secretClicks===10){coin+=25;addXP(25);r.innerText="ANJIR KETEMU 😭 +25 COIN"}else r.innerText="💀 lu bener-bener gabut.";update()}
+
+// ===== FITUR v8 =====
+function dailyReward(){
+  const key="daily_"+new Date().toISOString().slice(0,10);
+  if(localStorage.getItem(key)){document.getElementById("dailyResult").innerText="udah diambil hari ini jir 😭";return}
+  const c=10+Math.floor(Math.random()*21), e=5+Math.floor(Math.random()*11);
+  coin+=c; addXP(e); localStorage.setItem(key,"1");
+  document.getElementById("dailyCoin").innerText="+"+c;
+  document.getElementById("dailyXp").innerText="+"+e;
+  document.getElementById("dailyStatus").innerText="CLAIMED";
+  document.getElementById("dailyResult").innerText="🔥 mantap. +"+c+" coin dan +"+e+" EXP";
+}
+function spinWheel(){
+  const wheel=document.getElementById("wheel");
+  const rewards=[["+5 coin",5,0],["+15 coin",15,0],["+25 EXP",0,25],["+50 coin",50,0],["ZONK 😭",0,0],["+10 coin +10 EXP",10,10]];
+  const r=rewards[Math.floor(Math.random()*rewards.length)];
+  wheel.style.transform="rotate("+(720+Math.floor(Math.random()*720))+"deg)";
+  setTimeout(()=>{coin+=r[1];if(r[2])addXP(r[2]);if(r[1]>=50){document.getElementById("a6").classList.remove("locked")}document.getElementById("wheelResult").innerText="🎉 "+r[0];update()},1000);
+}
+let reactionReady=false,reactionTimer=null,reactionStartTime=0;
+function reactionStart(){
+  const b=document.getElementById("reactionBtn"),r=document.getElementById("reactionResult");
+  if(reactionReady){let ms=Date.now()-reactionStartTime;reactionReady=false;clearTimeout(reactionTimer);b.innerText="mulai";r.innerText="⚡ "+ms+" ms";if(ms<500)addXP(10);return}
+  b.innerText="tunggu...";
+  reactionTimer=setTimeout(()=>{reactionReady=true;reactionStartTime=Date.now();b.innerText="KLIK SEKARANG!!!";r.innerText="🟢 SEKARANG!!!"},1000+Math.random()*3000);
+}
+function memoryGame(){
+  const nums=Array.from({length:5},()=>Math.floor(Math.random()*10));
+  const shown=nums.join(" ");
+  document.getElementById("memoryResult").innerText="ingat: "+shown;
+  setTimeout(()=>{
+    const ans=prompt("Tulis kembali angka tadi, pakai spasi.");
+    if(ans===shown){coin+=10;addXP(10);document.getElementById("memoryResult").innerText="🔥 ingatan lu kuat jir. +10 coin";update()}
+    else document.getElementById("memoryResult").innerText="😭 salah. tadi: "+shown;
+  },1800);
+}
+const quotes=[
+"pelan-pelan juga nyampe, yang penting jangan berhenti.",
+"gak harus jago dari awal. mulai dulu aja.",
+"kalau gagal ya evaluasi, bukan langsung uninstall kehidupan 🗿.",
+"hari ini mungkin biasa aja, tapi siapa tau besok beda.",
+"mimpi gede gapapa. eksekusinya yang dicicil.",
+"yang penting progres, bukan kelihatan sibuk.",
+"lu gak telat. jalan orang beda-beda."
+];
+function randomQuote(){document.getElementById("quote").innerText="“"+quotes[Math.floor(Math.random()*quotes.length)]+"”";addXP(1)}
+function setMood(emoji,text){document.getElementById("moodResult").innerText=emoji+" "+text;localStorage.setItem("mood",emoji)}
+let visits=Number(localStorage.getItem("visits")||0)+1;localStorage.setItem("visits",visits);document.getElementById("visitCount").innerText=visits;
+function previewPhoto(e){const f=e.target.files[0];if(!f)return;const reader=new FileReader();reader.onload=()=>document.getElementById("photoPreview").src=reader.result;reader.readAsDataURL(f)}
+function photoEffect(e){const img=document.getElementById("photoPreview");img.style.filter=e==="gray"?"grayscale(1)":e==="sepia"?"sepia(1)":e==="invert"?"invert(1)":"none"}
+const exploreTexts=["🌌 lu nemu pemandangan luar angkasa.","💻 ada ruangan coding rahasia.","🗿 cuma batu. tapi estetik.","🎮 ada suara tombol dari kejauhan.","👀 sesuatu bergerak di pojokan...","🚀 jalan menuju masa depan kebuka sedikit.","🎁 lu nemu +7 coin!"];
+function explore(){const n=Math.floor(Math.random()*exploreTexts.length),r=document.getElementById("exploreResult");if(n===6){coin+=7;r.innerText=exploreTexts[n]+" +7 coin";update()}else{r.innerText=exploreTexts[n];addXP(2)}}
+function checkAchievements(){
+  if(coin>=10)document.getElementById("a1").classList.remove("locked");
+  if(wins>=3)document.getElementById("a2").classList.remove("locked");
+  if(roomFound)document.getElementById("a3").classList.remove("locked");
+  if(clickCount>=20)document.getElementById("a4").classList.remove("locked");
+  if(visits>=10){document.getElementById("a5").classList.remove("locked")}
+}
+
+function scrollToTools(){document.getElementById("tools").scrollIntoView({behavior:"smooth"})}
+
+const furina=document.getElementById("furina");
+const furinaImages=[
+"https://ik.imagekit.io/dvcgogwev/hocmarketing-org/11/08/og--genshin-impact-a-comprehensive-guide-to-furinas-constellations?tr=w-600%2Ch-400",
+"https://www.zerochan.net/4345318"
+];
+function showFurina(){furina.src=furinaImages[Math.floor(Math.random()*furinaImages.length)];furina.style.display="block";setTimeout(()=>furina.style.display="none",7000);if(!localStorage.getItem("furinaSeen")){localStorage.setItem("furinaSeen","1");addXP(5)}}
+setTimeout(()=>{if(Math.random()<.55)showFurina()},7000);
+document.addEventListener("click",e=>{if(Math.random()<.015 && e.target.tagName!=="IMG")showFurina()});
+showTimer();update();
+</script>
+
+<script id="structured-v9-js">
+(function(){
+  const container=document.querySelector(".container");
+  const intro=document.getElementById("pageIntro");
+  const pageContent=document.getElementById("pageContent");
+  const navButtons=[...document.querySelectorAll(".nav-btn")];
+  if(!container||!pageContent)return;
+
+  // Keep the hero as the Home intro.
+  const hero=container.querySelector(".hero");
+  if(hero){intro.appendChild(hero);}
+
+  const cards=[...container.querySelectorAll(":scope > .card")];
+  const groups={
+    home:["Dashboard","Website Update"],
+    profile:["User Area","Achievement","Mood Selector","Visitor Stats"],
+    fun:["Tebak Angka","Quiz PPLG","Random","Damar Bot","Timer Belajar","Mini Games Hub","Daily Reward","Spin Wheel","Secret Achievement"],
+    tools:["Tools","Photo Booth","Password Generator"],
+    dreams:["Cita-Cita"],
+    explore:["Secret Map","Explore More","Inventory"],
+    gallery:["Gallery"],
+    updates:["Website Update"]
+  };
+
+  // Website Update belongs on Home and Update. We'll clone it for the Update page.
+  const updateCard=cards.find(c=>(c.querySelector("h2")?.textContent||"").includes("Website Update"));
+
+  function titleFor(page){
+    const names={
+      home:["🏠","Home","beranda website gue"],
+      profile:["👤","Profil","area pengunjung + progress lu"],
+      fun:["🎮","Fun Zone","tempat resmi buat gabut"],
+      tools:["🧰","Tools","alat-alat yang mungkin berguna"],
+      dreams:["🚀","Mimpi","cita-cita & masa depan"],
+      explore:["🗺️","Explore","cari area dan rahasia"],
+      gallery:["🖼️","Gallery","koleksi visual"],
+      updates:["🛠️","Update","apa aja yang baru"]
+    };
+    return names[page]||["","Website",""];
+  }
+
+  function heading(page){
+    const [icon,name,desc]=titleFor(page);
+    const el=document.createElement("div");
+    el.className="page-title";
+    el.innerHTML="<div><h2>"+icon+" "+name+"</h2><p>"+desc+"</p></div>";
+    return el;
+  }
+
+  function cardTitle(c){return c.querySelector("h2")?.textContent.trim()||""}
+
+  // Classify existing cards.
+  const used=new Set();
+  cards.forEach(c=>{
+    const t=cardTitle(c);
+    let page="home";
+    for(const [p,names] of Object.entries(groups)){
+      if(names.some(n=>t.includes(n))){page=p;break}
+    }
+    c.dataset.page=page;
+  });
+
+  function showPage(page){
+    pageContent.innerHTML="";
+    pageContent.appendChild(heading(page));
+    const grid=document.createElement("div");
+    grid.className="section-grid";
+    let list=cards.filter(c=>c.dataset.page===page);
+
+    // Don't duplicate Website Update in normal Home flow if it will be cloned.
+    if(page==="updates" && updateCard){
+      list=[updateCard.cloneNode(true)];
+      // Clone needs its update button functionality; inline onclick still works.
+    }
+    if(!list.length){
+      const empty=document.createElement("div");
+      empty.className="section-empty";
+      empty.innerHTML="🚧 Belum ada isi di sini.<br><br>nanti gue tambahin sesuatu 🗿";
+      grid.appendChild(empty);
+    }else{
+      list.forEach((c,i)=>{
+        c.classList.add("v9-card");
+        if(["Dashboard","Website Update","Tools","Cita-Cita","Gallery"].some(x=>cardTitle(c).includes(x)))c.classList.add("wide");
+        grid.appendChild(c);
+      });
+    }
+    pageContent.appendChild(grid);
+    window.scrollTo({top:0,behavior:"smooth"});
+    navButtons.forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+    localStorage.setItem("activePage",page);
+  }
+
+  navButtons.forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+  const saved=localStorage.getItem("activePage");
+  showPage(groups[saved]?saved:"home");
+
+  // Secret easter egg: pressing H three times returns Home.
+  let h=0;
+  document.addEventListener("keydown",e=>{
+    if(e.key.toLowerCase()==="h"){h++;if(h>=3){showPage("home");h=0}}
+    else h=0;
+  });
+})();
+</script>
+</body>
+</html>
