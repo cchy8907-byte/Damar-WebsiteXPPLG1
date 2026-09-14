@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jb Shop - Toko Jual Beli Terpercaya</title>
+    <style>
+        /* ================= CSS (Desain & Tata Letak) ================= */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f59e0b;
+            --text-color: #333;
+            --bg-color: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background-color: #ffffff;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .cart-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* BODY / MAIN CONTENT */
+        main {
+            flex: 1;
+            padding: 40px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 60px 20px;
+            border-radius: 10px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* FITUR JUAL BARANG */
+        .sell-section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .sell-form {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .sell-form input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+            min-width: 200px;
+            font-size: 14px;
+        }
+
+        .sell-form button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .sell-form button:hover {
+            background-color: #d97706;
+        }
+
+        /* PRODUK GRID */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            padding-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background-color: #e5e7eb;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* SEKSI KONTAK TERPISAH */
+        .contact-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .contact-card p {
+            font-size: 15px;
+            color: #4b5563;
+            margin-bottom: 10px;
+        }
+
+        .contact-link {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER MURNI */
+        footer {
+            background-color: #111827;
+            color: #9ca3af;
+            padding: 30px 50px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="#" class="logo">Jb <span>Shop</span></a>
+        <nav>
+            <ul>
+                <li><a href="#">Beranda</a></li>
+                <li><a href="#jual">Jual Barang</a></li>
+                <li><a href="#produk">Produk</a></li>
+                <li><a href="#kontak">Kontak Kami</a></li>
+            </ul>
+        </nav>
+        <button class="cart-btn" onclick="checkout()">🛒 Keranjang (<span id="cart-count">0</span>)</button>
+    </header>
+
+    <!-- BODY -->
+    <main>
+        <!-- HERO BANNER -->
+        <section class="hero">
+            <h1>Selamat Datang di Jb Shop</h1>
+            <p>Pusat jual beli barang berkualitas dengan harga terbaik. Beli barang impianmu atau mulai berjualan sekarang!</p>
+        </section>
+
+        <!-- FITUR JUAL BARANG -->
+        <section class="sell-section" id="jual">
+            <h2 class="section-title" style="border-color: var(--secondary-color);">Mulai Berjualan</h2>
+            <p>Punya barang yang ingin dijual? Masukkan detail barangmu di bawah ini agar muncul di etalase kami!</p>
+            
+            <form class="sell-form" id="sell-form" onsubmit="sellProduct(event)">
+                <input type="text" id="sell-name" placeholder="Nama Barang (Contoh: Jaket Kulit)" required>
+                <input type="number" id="sell-price" placeholder="Harga (Contoh: 150000)" required min="1000">
+                <input type="url" id="sell-img" placeholder="Link URL Gambar (Opsional)">
+                <button type="submit">Jual Barang Ini</button>
+            </form>
+        </section>
+
+        <!-- ETALASE PRODUK -->
+        <h2 class="section-title" id="produk">Daftar Produk Terlaris</h2>
+        
+        <section class="products-grid" id="products-grid">
+            <!-- Produk diisi otomatis melalui JavaScript -->
+        </section>
+
+        <!-- BAGIAN KONTAK TERPISAH DARI FOOTER -->
+        <section class="contact-section" id="kontak">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <p>Punya pertanyaan atau ingin konfirmasi pesanan? Hubungi kami langsung melalui layanan pelanggan di bawah ini:</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>✉️ Kirim Email</h3>
+                    <p>Kirimkan pertanyaan atau tawaran kerjasama melalui alamat email resmi kami:</p>
+                    <a href="mailto:cchy7421@gmail.com" class="contact-link">cchy7421@gmail.com</a>
+                </div>
+
+                <div class="contact-card">
+                    <h3>📞 WhatsApp / Telepon</h3>
+                    <p>Layanan respon cepat untuk pembeli & penjual (Senin - Minggu):</p>
+                    <a href="https://wa.me/62882008639746" target="_blank" class="contact-link">+62-882-0086-39746</a>
+                </div>
+
+                <div class="contact-card">
+                    <h3>💳 Metode Pembayaran</h3>
+                    <p>Kami menerima Pembayaran via Transfer Bank, E-Wallet (Dana, GoPay, OVO), & COD.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER MURNI (KHUSUS HAK CIPTA & INFO SINGKAT) -->
+    <footer>
+        <p>&copy; 2026 <strong>Jb Shop</strong>. Platform Jual Beli Terpercaya. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <!-- ================= JAVASCRIPT (Logika Web) ================= -->
+    <script>
+        // Data Produk Bertambah Menjadi 8 Produk Lengkap dengan Gambar Sesuai
+        let productsData = [
+            { 
+                name: 'Sepatu Sneakers Pria', 
+                price: 250000, 
+                img: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=400&q=80' 
+            },
+            { 
+                name: 'Jam Tangan Minimalis', 
+                price: 150000, 
+                img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80' 
+            },
+            { 
+                name: 'Tas Ransel Anti Air', 
+                price: 300000, 
+                img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80' 
+            },
+            { 
+                name: 'Kacamata Hitam UV', 
+                price: 85000, 
+                img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80' 
+            },
+            { 
+                name: 'Headphone Wireless Bluetooth', 
+                price: 450000, 
+                img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80' 
+            },
+            { 
+                name: 'Jaket Denim Casual', 
+                price: 275000, 
+                img: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=400&q=80' 
+            },
+            { 
+                name: 'Topi Baseball Style', 
+                price: 65000, 
+                img: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=400&q=80' 
+            },
+            { 
+                name: 'Dompet Kulit Pria', 
+                price: 120000, 
+                img: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=400&q=80' 
+            }
+        ];
+
+        // Fungsi Menampilkan Semua Produk ke Layar
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = ''; 
+            
+            productsData.forEach((product) => {
+                grid.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.img}" alt="${product.name}" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">${product.name}</h3>
+                            <p class="product-price">Rp ${product.price.toLocaleString('id-ID')}</p>
+                            <button class="add-to-cart" onclick="addToCart('${product.name}', ${product.price})">Beli Sekarang</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        renderProducts();
+
+        // Fungsi Tambah Produk Baru (Jual Barang)
+        function sellProduct(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('sell-name').value;
+            const price = parseInt(document.getElementById('sell-price').value);
+            let imgUrl = document.getElementById('sell-img').value;
+
+            if (!imgUrl) {
+                imgUrl = 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80'; 
+            }
+
+            productsData.push({ name: name, price: price, img: imgUrl });
+            renderProducts();
+            
+            document.getElementById('sell-form').reset();
+            alert(`Sukses! Barang "${name}" berhasil dipajang di etalase Jb Shop.`);
+            document.getElementById('produk').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Logika Keranjang & Checkout
+        let cart = [];
+        let totalItems = 0;
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            totalItems++;
+            document.getElementById('cart-count').innerText = totalItems;
+            alert(`Berhasil! ${productName} ditambahkan ke keranjang.`);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("Keranjang belanja Anda masih kosong. Silakan pilih produk!");
+                return;
+            }
+
+            let totalHarga = 0;
+            let struk = "Daftar Belanja Anda:\n";
+            cart.forEach((item, index) => {
+                struk += `${index + 1}. ${item.name} - Rp ${item.price.toLocaleString('id-ID')}\n`;
+                totalHarga += item.price;
+            });
+            struk += `\nTotal Pembayaran: Rp ${totalHarga.toLocaleString('id-ID')}\n\nLanjutkan ke proses pembayaran?`;
+
+            if (confirm(struk)) {
+                alert("Pesanan diproses. Silakan hubungi admin di +62-882-0086-39746.");
+                cart = [];
+                totalItems = 0;
+                document.getElementById('cart-count').innerText = 0;
+            }
+        }
+    </script>
+</body>
+</html>
